@@ -10,7 +10,18 @@ import {
   Text,
   Stack,
   Divider,
+  FormControl,
+  FormLabel,
+  Input,
   Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import FriendSearch from "./FriendSearch";
 import { findAllUserProfiles, searchUserByEmail, User } from '../../graphql/queries';
@@ -26,7 +37,7 @@ function ProfileComponent(): JSX.Element {
   const [location, setLocation] = useState<string>("");
   const [occupation, setOccupation] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure() 
   useEffect(() => {
     const findUser = async () => {
       const userInfo = await searchUserByEmail(user.email);
@@ -97,9 +108,43 @@ function ProfileComponent(): JSX.Element {
                   width='full'
                   mt={4}
                   color='white'
+                  onClick={onOpen}
                 >
                   Edit Profile
+
                 </Button>
+                <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Update your account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Name</FormLabel>
+              <Input placeholder="Name" />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Occupation</FormLabel>
+              <Input placeholder="Occupation" />
+            </FormControl>
+             <FormControl mt={4}>
+              <FormLabel>Location</FormLabel>
+              <Input placeholder="Location" />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3}>
+                Update
+            </Button>
+            <Button onClick={onClose}>Delete</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
               </Box>
             </Flex>
           </Box>
