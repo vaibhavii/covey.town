@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { TownCreateRequest, TownJoinRequest, TownDeleteRequest, TownJoinResponse } from '../classes/TownsServiceClient';
+import { TownCreateRequest, TownJoinRequest, TownDeleteRequest, TownJoinResponse, TownListResponse, TownCreateResponse } from '../classes/TownsServiceClient';
 import client from './client';
 
 /**
@@ -46,6 +46,11 @@ export interface DeleteUserRequest {
   email: string
 }
 
+export interface DeleteUserResponse {
+  isOK: boolean
+  message: string
+ }
+
 
 /**
  * Envelope that wraps any response from the server
@@ -71,7 +76,6 @@ export interface User {
   friends: [],
   sentRequests: [],
 }
-
 
 const findAllUsers = gql`
   query findAllUsers {
@@ -108,24 +112,6 @@ const findAllUsersByUserNameQuery = gql`
   }
 `;
 
-const searchUserByUserNameQuery = gql`
-  query searchUserByUserName ($username: String!) {
-    searchUserByUserName (username: $username){
-      id
-      username
-      email
-      bio
-      location
-      occupation
-      instagramLink
-      facebookLink
-      linkedInLink
-      requests
-      friends
-      sentRequests
-    }
-  }
-`;
 
 const searchUserByEmailQuery = gql`
   query searchUserByEmail ($email: String!) {
@@ -253,28 +239,20 @@ const rejectFriendMutation = gql`
   }
 `;
 
-export const findAllUserProfiles = async (): Promise<any> => {
+export const findAllUserProfiles = async (): Promise<User[]> => {
   const { data } = await client.query({ query: findAllUsers });
   return data.users;
 };
 
-export const listTown = async (): Promise<any> => {
+export const listTown = async (): Promise<TownListResponse> => {
   const { data } = await client.query({ query: townList });
   return data.townList.response;
 };
 
-export const findAllUsersByUserName = async (username: string): Promise<any> => {
+export const findAllUsersByUserName = async (username: string): Promise<User[]> => {
   const { data } = await client.query({ query: findAllUsersByUserNameQuery, variables: { username } });
   return data.searchUserByUserName;
 };
-
-export const searchUserByUserName = async (userName: string): Promise<any> => {
-  const { data } = await client.query({
-    query: searchUserByUserNameQuery,
-    variables: { userName },
-  });
-  return data.searchUserByUserName;
-}
 
 export const searchUserByEmail = async (email: string): Promise<any> => {
   const { data } = await client.query({
@@ -292,7 +270,7 @@ export const searchUserByName = async (username: string): Promise<any> => {
   return data.searchUserByName;
 }
 
-export const createTown = async (payload: TownCreateRequest): Promise<any> => {
+export const createTown = async (payload: TownCreateRequest): Promise<TownCreateResponse> => {
   const { data } = await client.mutate({
     mutation: createTownMutation,
     variables: { input: payload },
@@ -347,13 +325,13 @@ export const updateUser = async (payload: UpdateUserRequest): Promise<any> => {
   return data.updateUser;
 }
 
-export const deleteUser = async (payload: DeleteUserRequest): Promise<any> => {
+export const deleteUser = async (payload: DeleteUserRequest): Promise<DeleteUserResponse> => {
   const { data } = await client.mutate({
     mutation: deleteUserMutation,
-    variables: {input: payload},
+    variables: { input: payload },
   });
   return data.deleteUser;
-}
+};
 
 export const deleteTown = async (payload: TownDeleteRequest): Promise<void> => {
   const { data } = await client.mutate({
