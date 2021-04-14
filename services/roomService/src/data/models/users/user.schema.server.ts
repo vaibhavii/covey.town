@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
+/**
+ * Each user has the following fields.
+ */
 export const userSchema = new Schema({
   username: String,
   email: String,

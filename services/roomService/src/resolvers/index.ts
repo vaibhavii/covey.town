@@ -76,6 +76,13 @@ const resolvers = {
       const result = newUser.save();
       return result;
     },
+    /**
+     * Resolver to update user fields: bio, location, occupation,
+     * instgramLink, facebookLink, linkedInLink.
+     * @param _ parent is not used here.
+     * @param args represents all the input parameters.
+     * @returns the updated user profile.
+     */
     updateUser: async (_: any, args: any) => {
       let user = await User.findOne({ id: args.input.id });
       if (user !== undefined) {
@@ -172,6 +179,12 @@ const resolvers = {
         throw error;
       }
     },
+    /**
+     *  Resolver to delete user.
+     * @param _ parent is not used here.
+     * @param args represents all the input parameters.
+     * @returns boolean:  true, if user is successfully deleted, false otherwise.
+     */
     deleteUser: async (_: any, args: any) => {
       const user = await User.findOne({ email: args.input.email });
       if (user !== undefined) {
@@ -203,13 +216,16 @@ const resolvers = {
       isPubliclyListed: args.input.isPubliclyListed,
     }),
 
-    townDeleteRequest: async (_: any, args: any) => {
-      const response = await townDeleteHandler({
-        coveyTownID: args.input.coveyTownID,
-        coveyTownPassword: args.input.coveyTownPassword,
-      });
-      return response;
-    },
+    /**
+     *  Resolver to handle town delete request.
+     * @param _ parent is not used here.
+     * @param args represents all the input parameters.
+     * @returns TownDeleteResponse
+     */
+    townDeleteRequest: async (_: any, args: any) => await townDeleteHandler({
+      coveyTownID: args.input.coveyTownID,
+      coveyTownPassword: args.input.coveyTownPassword,
+    }),
   },
 };
 
