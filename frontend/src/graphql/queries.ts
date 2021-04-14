@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { TownCreateRequest, TownJoinRequest, TownDeleteRequest } from '../classes/TownsServiceClient';
+import { TownCreateRequest, TownJoinRequest, TownDeleteRequest, TownJoinResponse } from '../classes/TownsServiceClient';
 import client from './client';
 
 /**
@@ -303,12 +303,11 @@ export const createTown = async (payload: TownCreateRequest): Promise<any> => {
  throw new Error(`Error processing request: ${data.townCreateRequest.message}`);
 };
 
-export const joinTown = async (payload: TownJoinRequest): Promise<any> => {
+export const joinTown = async (payload: TownJoinRequest): Promise<TownJoinResponse> => {
   const { data } = await client.mutate({
     mutation: joinTownMutation,
     variables: { input: payload }
   });
-
   if (data.townJoinRequest.isOK) {
     return data.townJoinRequest.response;
   }

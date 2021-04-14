@@ -23,7 +23,6 @@ import {
 import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/useVideoContext';
 import Video from '../../classes/Video/Video';
 import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
-import useCoveyAppState from '../../hooks/useCoveyAppState';
 import { createTown, searchUserByEmail, listTown} from '../../graphql/queries';
 
 interface TownSelectionProps {
@@ -38,7 +37,6 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [townIDToJoin, setTownIDToJoin] = useState<string>('');
   const [currentPublicTowns, setCurrentPublicTowns] = useState<CoveyTownInfo[]>();
   const { connect } = useVideoContext();
-  const { apiClient } = useCoveyAppState();
   const toast = useToast();
 
   const updateTownListings = useCallback(() => {
@@ -49,7 +47,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
           .sort((a: { currentOccupancy: number; }, b: { currentOccupancy: number; }) => b.currentOccupancy - a.currentOccupancy)
         );
       })
-  }, [setCurrentPublicTowns, apiClient]);
+  }, [setCurrentPublicTowns]);
 
   useEffect(() => {
     const findUser = async () => {
