@@ -58,25 +58,6 @@ const resolvers = {
 
   Mutation: {
     /**
-     *  Resolver to sign up - will be removed if everything is done in frontend by Auth0.
-     * @param _ parent is not used here.
-     * @param args represents all the input parameters.
-     * @returns the user profile.
-     */
-    signUp: async (_: any, args: any) => {
-      const user = await User.findOne({ email: args.input.email });
-      if (user) {
-        throw new Error('User already in use');
-      }
-      const newUser = new User({
-        username: args.input.userName,
-        email: args.input.email,
-        password: args.input.password,
-      });
-      const result = newUser.save();
-      return result;
-    },
-    /**
      * Resolver to update user fields: bio, location, occupation,
      * instgramLink, facebookLink, linkedInLink.
      * @param _ parent is not used here.

@@ -28,18 +28,6 @@ type User {
   sentRequests:[String!]
 }
 
-
-input signUpInput {
-  userName: String !
-  email: String
-  password : String!
-}
-
-input loginInput {
-  email: String!
-  password: String!
-}
-
 input townJoinRequestInput {
   userName: String!
   coveyTownID: String!
@@ -144,7 +132,6 @@ type TownDeleteResponseEnvelope {
 
 type Mutation {
   addFriend(input: addFriendInput): Boolean
-  signUp(input: signUpInput) : User
   townJoinRequest(input: townJoinRequestInput): TownJoinResponse
   townCreateRequest(input: townCreateRequestInput): TownCreateResponseEnevelope
   townDeleteRequest(input: townDeleteRequestInput): TownDeleteResponseEnvelope
