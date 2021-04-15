@@ -16,7 +16,7 @@ My conditions of satisfaction are :
 
 **Steps to Sign-up to Covey Town -**
 1. On the home-page, click on 'Log in' button. This will direct you to the log in/sign up page.
-2. Click on the 'Sign up' option to sign up using your email and password OR click on 'Continue with Google' option to use that account.
+2. Click on the 'Sign up' option to sign up using your email and password.
 3. On the signup page, you will be asked to enter your username, email and password. Once completed, click on 'Continue'.
 4. You will then be asked to Authorize the app. Click on 'Accept' then you will be directed to your profile.
 5. You will also receive an email asking you to verify you email and you can click on the 'Verify account' button in the email to verify to your Covey Town account,.
@@ -27,8 +27,7 @@ My conditions of satisfaction are :
 2. Enter your email and password and click on the 'Continue' button. If the credentials match, you will be directed to your user profile.
 3. If you have forgotten your password, click on the 'Forgot Password' button. This will direct you to a page where you will be asked to enter your username. Once entered, click on the 'Continue' button. You will then receive an email with a link to change your password.
 4. Click on the URL in the email to change your password and it will direct you to a page where you can reset your password. 
-5. tbd
-6. tbd
+5. You can then login using your email and new password.
 
 
 **Steps to Log out from Covey Town -**
