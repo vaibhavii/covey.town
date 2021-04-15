@@ -93,7 +93,7 @@ function ProfileComponent(): JSX.Element {
     }
     findUser();
     findAllUsers();
-  },[]);
+  },[user.email]);
 
   const updateUserCall = async () => {
 
@@ -124,7 +124,7 @@ function ProfileComponent(): JSX.Element {
     
     setIsAlertOpen(false);
     const payload: DeleteUserRequest = { email };
-    const success = await deleteUser(payload);
+    await deleteUser(payload);
     logout({ returnTo: window.location.origin });
   }
 

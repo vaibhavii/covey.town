@@ -6,8 +6,7 @@ import {
   Heading,
   Box,
   Button,
-  Text,
-  Stack
+  Text
 } from '@chakra-ui/react';
 import {useAuth0} from "@auth0/auth0-react";
 import {searchUserByName, searchUserByEmail, addFriend} from "../../graphql/queries";
