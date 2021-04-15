@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
+
 /**
  * Each user has the following fields.
  */
@@ -15,6 +16,6 @@ export const userSchema = new Schema({
   linkedInLink: String,
   requests:[String],
   sentRequests:[String],
-  friends:[String]
+  friends:[String],
 }, {collection:'User'});
 
