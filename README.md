@@ -53,11 +53,11 @@ The frontend will automatically re-compile and reload in your browser if you cha
 
 ### Netlify URL
 
-[Netlify URL](https://sleepy-hypatia-8598e8.netlify.app/)
+[Netlify URL](https://hardcore-sinoussi-aeac49.netlify.app/)
 
 ### Tests
 
 Run `npm test` in `services/roomService` directory to run tests written for backend New tests for
 text-chat user stories implemented are prefixed with "New Feature Test" in test description All new
 tests are located in "CoveyTownsSocket.test.ts" and "CoveyTownController.test.ts" along with
-previous tests from Homeworks
+previous tests from Assignments.
