@@ -49,9 +49,10 @@ My conditions of satisfaction are :
 **Steps to View profile information -**
 1. Log into your Covey Town account, the steps to login are mentioned in User Story 1.
 2. Once you log in successfully, you will be directed to your user profile where you can see your profile information.
-3. <insert ss for profile info with arrows pointing for user and other user> 
-4. You can navigate to the user profile at any time by clicking on the 'Profile' button which is the second to last button on the top-right corner.
+3. You can navigate to the user profile at any time by clicking on the 'Profile' button which is the second to last button on the top-right corner.
+Attached below is a screenshot to help you navigate : 
 
+<img src="https://github.com/trena-dhingra/covey.town/raw/features.md-dhingrat/screenshots/features.png"/>
 
 **Steps to Update profile information -**
 1. You can edit the profile information by adding/updating or removing information such as - 
