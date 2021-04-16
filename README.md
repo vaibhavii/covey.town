@@ -4,7 +4,8 @@ Covey.Town provides a virtual meeting space where different groups of people can
 Covey.Town was built for Northeastern's [Spring 2021 software engineering course](https://neu-se.github.io/CS4530-CS5500-Spring-2021/), and is designed to be reused across semesters.
 You can view our reference deployment of the app at [app.covey.town](https://app.covey.town/).
 
-![Covey.Town Architecture](docs/covey-town-architecture.png)
+<img width="953" alt="Screen Shot 2021-04-16 at 7 38 13 PM" src="https://user-images.githubusercontent.com/20925329/115094802-da7c9400-9eec-11eb-95d2-4e03b8dafe7d.png">
+
 
 The figure above depicts the high-level architecture of Covey.Town.
 The frontend client (in the `frontend` directory of this repository) uses the [PhaserJS Game Library](https://phaser.io) to create a 2D game interface, using tilemaps and sprites.
@@ -45,3 +46,18 @@ Create a `.env` file in the `frontend` directory, with the line: `REACT_APP_TOWN
 
 In the `frontend` directory, run `npm start` (again, you'll need to run `npm install` the very first time). After several moments (or minutes, depending on the speed of your machine), a browser will open with the frontend running locally.
 The frontend will automatically re-compile and reload in your browser if you change any files in the `frontend/src` directory.
+
+### GitHub URL
+
+[GitHub Repo Link](https://github.com/vaibhavii/covey.town)
+
+### Netlify URL
+
+[Netlify URL](https://sleepy-hypatia-8598e8.netlify.app/)
+
+### Tests
+
+Run `npm test` in `services/roomService` directory to run tests written for backend New tests for
+text-chat user stories implemented are prefixed with "New Feature Test" in test description All new
+tests are located in "CoveyTownsSocket.test.ts" and "CoveyTownController.test.ts" along with
+previous tests from Homeworks
