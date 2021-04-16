@@ -63,9 +63,8 @@ My conditions of satisfaction are :
    6. Facebook link.
 2. To edit this information, click on the 'Edit Profile' button as shown in the screenshot attached above. This will open up a dialog box. Here, you can add/change or remove the information as required.
 3. Once satisfied, click on the 'Update' button to save the changes made. The changes will be reflected on you profile.
-4. Once satisfied, click on the 'Update' button to save the changes made. The changes will be reflected on you profile.
-5. You can also update password by clicking on the 'Update Password' button as shown in the screenshot above.
-6. You will then receive an email to reset the password. Follow the instructions in the email to change your password.
+4. You can also update password by clicking on the 'Update Password' button as shown in the screenshot above.
+5. You will then receive an email to reset the password. Follow the instructions in the email to change your password.
 
 
 **Steps to Delete profile -**
