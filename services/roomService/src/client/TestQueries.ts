@@ -188,3 +188,14 @@ export const rejectFriendMutation = gql`
     rejectFriend(input: $input)
   }
 `;
+
+
+export const updateTownMutation = gql`
+  mutation updateTown($input: townUpdateRequestInput!) {
+    townUpdateRequest(input: $input) {
+      isOK
+      message
+    }
+  }
+`;
+

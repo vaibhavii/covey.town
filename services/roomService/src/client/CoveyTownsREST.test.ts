@@ -1,12 +1,40 @@
-import Express from 'express';
-import CORS from 'cors';
-import http from 'http';
 import { nanoid } from 'nanoid';
 import assert from 'assert';
-import { AddressInfo } from 'net';
+import { createTestClient } from 'apollo-server-testing';
+import { ApolloServer } from 'apollo-server-express';
+import mongoose from 'mongoose';
+import {
+  GraphQLResponse,
+} from 'apollo-server-types';
+import {
+  createTownMutation,
+  updateTownMutation,
+  deleteTownMutation,
+  townList,
+} from './TestQueries';
+import typeDefs from '../typeDefs';
+import resolvers from '../resolvers';
+import connection from '../data/Utils/index';
 
-import TownsServiceClient, { TownListResponse } from './TownsServiceClient';
-import addTownRoutes from '../router/towns';
+
+const context = { user: {email: 'admin@labtrail.app'} };
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: () => (context),
+});
+
+const { query, mutate } = createTestClient(server);
+
+
+beforeAll(async () => {
+  await connection();
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 type TestTownData = {
   friendlyName: string, coveyTownID: string,
@@ -28,38 +56,26 @@ function expectTownListMatches(towns: TownListResponse, town: TestTownData) {
 }
 
 describe('TownsServiceAPIREST', () => {
-  let server: http.Server;
-  let apiClient: TownsServiceClient;
 
   async function createTownForTesting(friendlyNameToUse?: string, isPublic = false): Promise<TestTownData> {
     const friendlyName = friendlyNameToUse !== undefined ? friendlyNameToUse :
       `${isPublic ? 'Public' : 'Private'}TestingTown=${nanoid()}`;
-    const ret = await apiClient.createTown({
-      friendlyName,
-      isPubliclyListed: isPublic,
+    const { data } = await mutate({
+      mutation: createTownMutation,
+      variables: {
+        input: {
+          friendlyName,
+          isPubliclyListed: isPublic,
+        }},
     });
     return {
       friendlyName,
       isPubliclyListed: isPublic,
-      coveyTownID: ret.coveyTownID,
-      townUpdatePassword: ret.coveyTownPassword,
+      coveyTownID: data.townCreateRequest.response.coveyTownID,
+      townUpdatePassword: data.townCreateRequest.response.coveyTownPassword,
     };
   }
 
-  beforeAll(async () => {
-    const app = Express();
-    app.use(CORS());
-    server = http.createServer(app);
-
-    addTownRoutes(server, app);
-    await server.listen();
-    const address = server.address() as AddressInfo;
-
-    apiClient = new TownsServiceClient(`http://127.0.0.1:${address.port}`);
-  });
-  afterAll(async () => {
-    await server.close();
-  });
   describe('CoveyTownCreateAPI', () => {
     it('Allows for multiple towns with the same friendlyName', async () => {
       const firstTown = await createTownForTesting();
@@ -84,12 +100,11 @@ describe('TownsServiceAPIREST', () => {
       const privTown1 = await createTownForTesting(undefined, false);
       const pubTown2 = await createTownForTesting(undefined, true);
       const privTown2 = await createTownForTesting(undefined, false);
-
-      const towns = await apiClient.listTowns();
-      expectTownListMatches(towns, pubTown1);
-      expectTownListMatches(towns, pubTown2);
-      expectTownListMatches(towns, privTown1);
-      expectTownListMatches(towns, privTown2);
+      const { data } = await query({ query: townList });
+      expectTownListMatches(data.townList.response, pubTown1);
+      expectTownListMatches(data.townList.response, pubTown2);
+      expectTownListMatches(data.townList.response, privTown1);
+      expectTownListMatches(data.townList.response, privTown2);
 
     });
     it('Allows for multiple towns with the same friendlyName', async () => {
@@ -98,11 +113,11 @@ describe('TownsServiceAPIREST', () => {
       const pubTown2 = await createTownForTesting(pubTown1.friendlyName, true);
       const privTown2 = await createTownForTesting(pubTown1.friendlyName, false);
 
-      const towns = await apiClient.listTowns();
-      expectTownListMatches(towns, pubTown1);
-      expectTownListMatches(towns, pubTown2);
-      expectTownListMatches(towns, privTown1);
-      expectTownListMatches(towns, privTown2);
+      const { data } = await query({ query: townList });
+      expectTownListMatches(data.townList.response, pubTown1);
+      expectTownListMatches(data.townList.response, pubTown2);
+      expectTownListMatches(data.townList.response, privTown1);
+      expectTownListMatches(data.townList.response, privTown2);
     });
   });
 
