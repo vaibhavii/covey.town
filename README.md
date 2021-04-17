@@ -57,7 +57,4 @@ The frontend will automatically re-compile and reload in your browser if you cha
 
 ### Tests
 
-Run `npm test` in `services/roomService` directory to run tests written for backend New tests for
-text-chat user stories implemented are prefixed with "New Feature Test" in test description All new
-tests are located in "CoveyTownsSocket.test.ts" and "CoveyTownController.test.ts" along with
-previous tests from Assignments.
+Run `npm test` in `services/roomService` directory to run tests written for backend. New backend tests are written in CoveyProfile.test.ts. To run the new functionality tests - Run `npm test CoveyProfile.test.ts` in `services/roomService`. To run the frontend tests - Run `npm test` in `/frontend` directory.
